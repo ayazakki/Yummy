@@ -178,13 +178,13 @@ aside i {
   cursor: pointer;
   overflow: hidden;
   border-color: black;
+  width:65%;
 }
 
 .card:hover .layer {
   opacity: 0.7;
   transform: translateY(0);
 }
-
 
 
 

@@ -20,8 +20,8 @@ function displayData(listArea) {
   let cartona = ``;
   for (let i = 0; i < Math.min(20, listArea.length); i++) {
     cartona += `
-    <div class="col-md-3 g-4">
-          <div class="card position-relative bg-black">
+    <div class="col-md-3 g-4 pt-2">
+          <div class="card m-auto position-relative bg-black">
             <a href="filteredArea.html?a=${listArea[i].strArea}" class=" text-decoration-none text-white text-center">
               <i class="fa-solid fa-house-laptop fa-4x"></i>
               <h3>${listArea[i].strArea}</h3>

@@ -21,8 +21,11 @@ function updateSubmitButton() {
       passwordInput.value === repasswordInput.value;
     if (isValid) {
       submitBtn.removeAttribute("disabled");
+      submitBtn.classList.replace("btn-outline-danger","btn-danger")
+      
     } else {
-      submitBtn.setAttribute("disabled");
+      submitBtn.setAttribute("disabled","disabled");
+      submitBtn.classList.replace("btn-danger","btn-outline-danger")
     }
   }
 
@@ -36,7 +39,7 @@ function validation(fieldInput) {
       regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
       break;
     case phoneInput:
-      regex = /^(\+20\s?)?01[0125][0-9]{4}[-.\s]?[0-9]{4}$/;
+      regex = /^(?:0(?:10|11|12|15)\d{8}|\+20(?:10|11|12|15)\d{8})$/;
       break;
     case ageInput:
       regex = /^(?:[1-9]|[1-9][0-9])$/;
@@ -61,77 +64,67 @@ function validation(fieldInput) {
     return false;
   }
 }
-nameInput.addEventListener("blur",function(){
-  if(nameInput.value==""){
-    document.querySelector("#alertName").classList.replace("d-flex","d-none")
-  }else if(validation(nameInput)){
-    document.querySelector("#alertName").classList.replace("d-flex","d-none")
-  }else{
-    document.querySelector("#alertName").classList.replace("d-none","d-flex")
-    document.querySelector("#alertName").innerHTML=`
-    <p class="mb-0"> username must be at least 3 characters long!</p>
-    `
-  }
-  updateSubmitButton();
-})
-emailInput.addEventListener("blur",function(){
-  if(emailInput.value==""){
-    document.querySelector("#alertEmail").classList.replace("d-flex","d-none")
-  }else if(validation(emailInput)){
-    document.querySelector("#alertEmail").classList.replace("d-flex","d-none")
-  }else{
-    document.querySelector("#alertEmail").classList.replace("d-none","d-flex")
-    document.querySelector("#alertEmail").innerHTML=`
-    <p class="mb-0"> A standard email address format with a local part, @ symbol, domain, and top-level domain! like: user@domain.com</p>
-    `
-  }
-  updateSubmitButton();
-})
-phoneInput.addEventListener("blur",function(){
-  if(phoneInput.value==""){
-    document.querySelector("#alertPhone").classList.replace("d-flex","d-none")
-  }else if(validation(phoneInput)){
-    document.querySelector("#alertPhone").classList.replace("d-flex","d-none")
-  }else{
-    document.querySelector("#alertPhone").classList.replace("d-none","d-flex")
-    document.querySelector("#alertPhone").innerHTML=`
-    <p class="mb-0"> Please enter a valid Egyptian mobile number (e.g., 01012345678).</p>
-    `
-  }
-  updateSubmitButton();
-})
-ageInput.addEventListener("blur",function(){
-  if(ageInput.value==""){
-    document.querySelector("#alertAge").classList.replace("d-flex","d-none")
-  }else if(validation(ageInput)){
-    document.querySelector("#alertAge").classList.replace("d-flex","d-none")
-  }else{
-    document.querySelector("#alertAge").classList.replace("d-none","d-flex")
-    document.querySelector("#alertAge").innerHTML=`
-    <p class="mb-0"> Please enter a valid age between 1 and 99</p>
-    `
-  }
-  updateSubmitButton();
-})
-passwordInput.addEventListener("blur",function(){
-  if(passwordInput.value==""){
-    document.querySelector("#alertPassword").classList.replace("d-flex","d-none")
-  }else if(validation(passwordInput)){
-    document.querySelector("#alertPassword").classList.replace("d-flex","d-none")
-  }else{
-    document.querySelector("#alertPassword").classList.replace("d-none","d-flex")
-    document.querySelector("#alertPassword").innerHTML=`
+const inputs = [
+  {
+    element: nameInput,
+    alertId: '#alertName',
+    message: '<p class="mb-0">Username must be at least 3 characters long!</p>'
+  },
+  {
+    element: emailInput,
+    alertId: '#alertEmail',
+    message: '<p class="mb-0">Enter a valid email address (e.g., user@domain.com).</p>'
+  },
+  {
+    element: phoneInput,
+    alertId: '#alertPhone',
+    message: `
+      <ul class="mb-0 list-unstyled">
+    <p class="ms-1 mt-1">Enter an 11-digit phone number: </p>
+      <p class="ms-1"><i class="fa-solid fa-circle-check me-2"></i>0 then 3-digit code (010, 011, 012, 015) then 8 digits (e.g., 0XXXXXXXXXX).</p>
+      <p class="ms-1"><i class="fa-solid fa-circle-check me-2"></i>+20 then 3-digit code (10, 11, 12, 15) then 8 digits (e.g., +20XXXXXXXXX).</p>
+    </ul>`
+  },
+  {
+    element: ageInput,
+    alertId: '#alertAge',
+    message: '<p class="mb-0">Please enter a valid age between 1 and 99.</p>'
+  },
+  {
+    element: passwordInput,
+    alertId: '#alertPassword',
+    message: `
     <ul class="mb-0 list-unstyled">Minimum length: 8 characters. Must include:
       <p class="ms-1 mt-1"><i class="fa-solid fa-circle-check me-2"></i>At least 1 lowercase letter.</p>
       <p class="ms-1"><i class="fa-solid fa-circle-check me-2"></i>At least 1 uppercase letter.</p>
       <p class="ms-1"><i class="fa-solid fa-circle-check me-2"></i>At least 1 number.</p>
       <p class="ms-1"><i class="fa-solid fa-circle-check me-2"></i>At least 1 special character from !@#$%^&*.</p>
-    </ul>
-    `
+    </ul>`
   }
-  updateSubmitButton();
-})
+];
+inputs.forEach(({ element, alertId, message }) => {
+  if (!element) {
+    console.error(`Input element for ${alertId} not found`);
+    return;
+  }
+  element.addEventListener('blur', () => {
+    const alertElement = document.querySelector(alertId);
+    if (!alertElement) {
+      console.error(`Alert element ${alertId} not found`);
+      return;
+    }
+    if (element.value === '') {
+      alertElement.classList.replace('d-flex', 'd-none');
+    } else if (validation(element)) {
+      alertElement.classList.replace('d-flex', 'd-none');
+    } else {
+      alertElement.classList.replace('d-none', 'd-flex');
+      alertElement.innerHTML = message;
+    }
+  });
+});
 repasswordInput.addEventListener("blur",function(){
+
   if(passwordInput.value!==repasswordInput.value){
     document.querySelector("#alertRepassword").innerHTML=`
     <p class="mb-0"> Please enter the same password you have entered before</p>
@@ -140,7 +133,6 @@ repasswordInput.addEventListener("blur",function(){
   }else{
     document.querySelector("#alertRepassword").classList.replace("d-flex","d-none")
   }
-  updateSubmitButton();
 })
 nameInput.addEventListener("input", function () {
   validation(nameInput);
@@ -162,14 +154,17 @@ passwordInput.addEventListener("input", function () {
   validation(passwordInput);
   updateSubmitButton();
 });
+
 repasswordInput.addEventListener("input", function () {
-  if(passwordInput.value!==repasswordInput.value){
-    document.querySelector("#alertRepassword").innerHTML=`
-    <p class="mb-0"> Please enter the same password you have entered before</p>
-    `
-    document.querySelector("#alertRepassword").classList.replace("d-none","d-flex")
+  if(repasswordInput.value===''){
+    repasswordInput.classList.remove("is-valid" ,"is-invalid")
+  }
+  else if(passwordInput.value!==repasswordInput.value){
+    repasswordInput.classList.add("is-invalid")
+    repasswordInput.classList.remove("is-valid")
   }else{
-    document.querySelector("#alertRepassword").classList.replace("d-flex","d-none")
+    repasswordInput.classList.add("is-valid")
+    repasswordInput.classList.remove("is-invalid")
   }
   updateSubmitButton();
   });

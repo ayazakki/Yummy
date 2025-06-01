@@ -21,7 +21,7 @@ function displayData(categories) {
   for (let i = 0; i < Math.min(20, categories.length); i++) {
     cartona += `
     <div class="col-md-3 g-4">
-          <div class="card position-relative bg-black">
+          <div class="card m-auto position-relative bg-black">
             <a href="filterCategories.html?c=${categories[i].strCategory}">
               <img src="${categories[i].strCategoryThumb}" class="w-100 rounded-2 meal-thumb" alt="${categories[i].strCategory}">
             </a>

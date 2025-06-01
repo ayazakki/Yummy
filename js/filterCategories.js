@@ -26,7 +26,7 @@ function displayData(category) {
   for (let i = 0; i < category.length; i++) {
     cartona += `
     <div class="col-md-3 g-4">
-          <div class="card position-relative bg-black">
+          <div class="card m-auto position-relative bg-black">
             <a href="mealDetails.html?id=${category[i].idMeal}">
               <img src="${category[i].strMealThumb}" class="w-100 rounded-2 meal-thumb" alt="${category[i].strMeal}">
             </a>

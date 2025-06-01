@@ -22,7 +22,7 @@ function displayData(ingredients) {
     if(ingredients[i].strDescription !==null){
         cartona += `
     <div class="col-md-3 g-4">
-          <div class="card position-relative bg-black">
+          <div class="card m-auto position-relative bg-black">
             <a href="filteredIngredients.html?i=${ingredients[i].strIngredient}" class=" text-decoration-none text-white text-center">
               <i class="fa-solid fa-drumstick-bite fa-4x"></i>
               <h3>${ingredients[i].strIngredient}</h3>

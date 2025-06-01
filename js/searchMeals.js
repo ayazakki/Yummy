@@ -14,7 +14,7 @@ $("#nameInput").on("input", function () {
 
 async function searchMealsByName(mealName) {
   $(".row-meals").html(`
-      <div class="loading-screen-search bg-dark">
+      <div class="loading-screen-search">
         <span class="loader"></span>
       </div>
     `);
@@ -34,7 +34,7 @@ async function searchMealsByName(mealName) {
     setTimeout(() => {
       $(".loading-screen-search").addClass("d-none");
       $(".row-meals").html(`
-          <div class="bg-dark w-100 h-100 text-light text-center py-5">
+          <div class="w-100 h-100 text-light text-center py-5">
             <p>No meals found for "${mealName}".</p>
           </div>
         `);
@@ -47,7 +47,7 @@ function displaySearchedMeals(meals) {
   for (let i = 0; i < Math.min(20, meals.length); i++) {
     cartona += `
     <div class="col-md-3 g-4">
-          <div class="card position-relative">
+          <div class="card m-auto position-relative">
             <a href="mealDetails.html?id=${meals[i].idMeal}">
               <img src="${meals[i].strMealThumb}" class="w-100 rounded-2 meal-thumb" alt="${meals[i].strMeal}">
             </a>
@@ -79,7 +79,7 @@ $("#letterInput").on("input",function(){
 })
 async function searchMealsByLetter(mealLetter){
   $(".row-meals").html(`
-      <div class="loading-screen-search bg-dark">
+      <div class="loading-screen-search">
         <span class="loader"></span>
       </div>
     `);
@@ -99,7 +99,7 @@ async function searchMealsByLetter(mealLetter){
     setTimeout(() => {
       $(".loading-screen-search").addClass("d-none");
       $(".row-meals").html(`
-          <div class="bg-dark w-100 h-100 text-light text-center py-5">
+          <div class="w-100 h-100 text-light text-center py-5">
             <p>No meals found for "${mealLetter}".</p>
           </div>
         `);

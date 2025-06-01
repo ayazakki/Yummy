@@ -42,13 +42,13 @@ function displayMealDetails(mealData){
   
   let cartona=`
   <div class="col-md-4">
-          <div class="card card-details">
+          <div class="card m-auto w-75 card-details">
             <img src="${mealData[0].strMealThumb}" alt="${mealData[0].strMeal}">
           </div>
-          <h1 class="fs-2">${mealData[0].strMeal}</h1>
+          <h1 class="fs-2 ps-5 pe-2 mt-4">${mealData[0].strMeal}</h1>
         </div>
-        <div class="col-md-8">
-          <h2>Instructions</h2>
+        <div class="col-md-8 ps-5 pe-4 mt-4">
+          <h2 class="fs-3">Instructions</h2>
           <p>${mealData[0].strInstructions}</p>
           <h2 class="fs-3">Area : ${mealData[0].strArea}</h2>
           <h2 class="fs-3">Category : ${mealData[0].strCategory}</h2>

@@ -22,7 +22,7 @@ function displayData(meals) {
   for (let i = 0; i < meals.length; i++) {
     cartona += `
     <div class="col-md-3 g-4">
-          <div class="card position-relative">
+          <div class="card m-auto text-center position-relative">
             <a href="mealDetails.html?id=${meals[i].idMeal}">
               <img src="${meals[i].strMealThumb}" class="w-100 rounded-2 meal-thumb" alt="${meals[i].strMeal}">
             </a>
