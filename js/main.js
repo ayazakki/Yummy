@@ -23,7 +23,7 @@ function displayData(meals) {
     cartona += `
     <div class="col-md-3 g-4">
           <div class="card m-auto text-center position-relative">
-            <a href="mealDetails.html?id=${meals[i].idMeal}">
+            <a href="pages/mealDetails.html?id=${meals[i].idMeal}">
               <img src="${meals[i].strMealThumb}" class="w-100 rounded-2 meal-thumb" alt="${meals[i].strMeal}">
             </a>
             <div class="layer">
